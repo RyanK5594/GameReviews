@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tELNsQPCmvZjP9K7+FRtOZL+2EBNuufmSpUbqxa0P8gdeGXTMk3rsIsHv8svD3wM64T6+e53tGAkNpqwoals6Q==",
+  "dgSpecHash": "GQ96JRH+KINwAXISkpIz/bzlKMSEj34rFkniEyv8e5SmPK2er+3LM9uITwABO+SdJV8em2ETHOaSISjfHoYCEQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Algo\\GameReviewsAPI\\GameReviewsAPI.csproj",
+  "projectFilePath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ryanj\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ryanj\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

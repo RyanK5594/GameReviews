@@ -12079,11 +12079,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Algo\\GameReviewsAPI\\GameReviewsAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
       "projectName": "GameReviewsAPI",
-      "projectPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Algo\\GameReviewsAPI\\GameReviewsAPI.csproj",
+      "projectPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
       "packagesPath": "C:\\Users\\ryanj\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Algo\\GameReviewsAPI\\obj\\",
+      "outputPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ryanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
