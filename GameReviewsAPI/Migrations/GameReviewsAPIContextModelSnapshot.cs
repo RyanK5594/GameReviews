@@ -129,13 +129,11 @@ namespace GameReviewsAPI.Migrations
 
             modelBuilder.Entity("GameReviewsAPI.Review", b =>
                 {
-                    b.HasOne("GameReviewsAPI.Game", "Game")
+                    b.HasOne("GameReviewsAPI.Game", null)
                         .WithMany("Reviews")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameReviewsAPI.Game", b =>

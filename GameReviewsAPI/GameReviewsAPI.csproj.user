@@ -12,5 +12,6 @@
     <WebStackScaffolding_DbContextTypeFullName>GameReviewsAPI.Data.GameReviewsAPIContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <ActiveDebugProfile>https</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>D:\GameReviews\GameReviewsAPI\Properties\PublishProfiles\GameReviewsAPI20250417215009 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -32,5 +32,6 @@ namespace GameReviewsAPI
         public string User { get; set; }
         public double Stars { get; set; }
         public DateTime DateOfReview { get; set; }
+        public int GameID { get; set; }
     }
 }

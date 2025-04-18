@@ -10,7 +10,9 @@ namespace GameReviewsAPI
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<GameReviewsAPIContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("GameReviewsAPIContext") ?? throw new InvalidOperationException("Connection string 'GameReviewsAPIContext' not found.")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("GameReviewsAPIContext")));
+
+
 
             // Add services to the container.
 

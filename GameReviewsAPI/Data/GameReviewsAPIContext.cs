@@ -14,8 +14,16 @@ namespace GameReviewsAPI.Data
         {
         }
 
-        public DbSet<GameReviewsAPI.Game> Game { get; set; } = default!;
+        public DbSet<Game> Game { get; set; } = default!;
+        public DbSet<Review> Review { get; set; } = default!;
 
-        public DbSet<GameReviewsAPI.Review> Review { get; set; } = default!;
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Review>()
+                .HasOne<Game>()
+                .WithMany(g => g.Reviews)
+                .HasForeignKey(r => r.GameID)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
