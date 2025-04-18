@@ -4,6 +4,6 @@ import com.example.gamereviewapp.model.game
 import retrofit2.http.GET
 
 interface GameApi {
-    @GET("PlaceTheActualAPIHereWhenItsDeployed")
+    @GET("api/games")
     suspend fun getGames(): List<game>
 }

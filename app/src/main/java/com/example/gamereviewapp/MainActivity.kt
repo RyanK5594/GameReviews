@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.gamereviewapp.ui.GameListScreen
+import com.example.gamereviewapp.ui.theme.GameListScreen
 import com.example.gamereviewapp.ui.theme.GameReviewAppTheme
-import com.example.gamereviewapp.viewmodel.GameViewModel
+import com.example.gamereviewapp.viewmodel.ViewGameModel
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: GameViewModel by viewModels()
+    private val viewModel: ViewGameModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
