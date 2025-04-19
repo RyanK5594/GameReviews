@@ -43,5 +43,7 @@ fun GameDetailScreen(game: game) {
         Spacer(Modifier.height(12.dp))
 
         Text("Price: $${game.price}")
+
+        ReviewSection(gameID = game.gameID)
     }
 }
