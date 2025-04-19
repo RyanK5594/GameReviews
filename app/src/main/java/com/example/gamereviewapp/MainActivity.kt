@@ -20,40 +20,43 @@ import coil.compose.AsyncImage
 import com.example.gamereviewapp.ui.theme.GameReviewAppTheme
 import com.example.gamereviewapp.network.RetrofitInstance
 import com.example.gamereviewapp.model.Game
+import androidx.navigation.compose.*
+import com.example.gamereviewapp.viewmodel.ViewGameModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.gamereviewapp.ui.navigation.Screen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.gamereviewapp.ui.theme.GameListScreen
+import com.example.gamereviewapp.ui.theme.GameDetailWrapper
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            var games by remember { mutableStateOf<List<Game>>(emptyList()) }
-            var loading by remember { mutableStateOf(true) }
-            val context = LocalContext.current
 
-            LaunchedEffect(Unit) {
-                try {
-                    games = RetrofitInstance.api.getGames()
-                    loading = false
-                } catch (e: Exception) {
-                    loading = false
-                    Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+                setContent {
+                    val navController = rememberNavController()
+                    val viewModel = remember { ViewGameModel() }
 
-            GameReviewAppTheme {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    if (loading) {
-                        CircularProgressIndicator()
-                    } else {
-                        GameSwipeScreen(games)
+                    GameReviewAppTheme {
+                        NavHost(navController = navController, startDestination = "gameList") {
+                            composable("gameList") {
+                                GameListScreen(
+                                    viewModel = viewModel,
+                                    onGameClick = { game ->
+                                        navController.navigate("gameDetail/${game.gameID}")
+                                    }
+                                )
+                            }
+                            composable("gameDetail/{gameId}") { backStackEntry ->
+                                val gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
+                                if (gameId != null) {
+                                    GameDetailWrapper(gameID = gameId)
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        }
+             0   }
     }
 }
 
