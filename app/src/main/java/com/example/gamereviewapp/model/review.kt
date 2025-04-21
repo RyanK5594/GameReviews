@@ -4,7 +4,7 @@ data class review(
     val reviewID: Int,
     val reviewText: String,
     val user: String,
-    val stars: Int,
+    val stars: Float,
     val dateOfReview: String,
     val gameID: Int
 )

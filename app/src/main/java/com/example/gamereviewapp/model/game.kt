@@ -5,7 +5,7 @@ data class game(
     val gameTitle: String,
     val gameCover: String,
     val description: String,
-    val averageStars: Int,
+    val averageStars: Float,
     val genre: String,
     val devloper: String,
     val publisher: String,
@@ -17,6 +17,6 @@ data class game(
     val languages: String,
     val requirements: String,
     val gameplayImages: String,
-    val price: Int,
+    val price: Float,
     val reviews: Any?
 )
