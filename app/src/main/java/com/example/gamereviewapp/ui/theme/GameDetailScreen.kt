@@ -1,5 +1,7 @@
 package com.example.gamereviewapp.ui.theme
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -11,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.gamereviewapp.model.Game
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun GameDetailScreen(game: Game) {
     Column(modifier = Modifier

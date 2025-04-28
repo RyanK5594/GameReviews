@@ -19,12 +19,40 @@ import com.example.gamereviewapp.Review
 import com.example.gamereviewapp.network.RetrofitInstance
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
+import android.os.Build
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.border
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
+import androidx.compose.material3.Slider
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDateTime
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.rememberCoroutineScope
+import com.example.gamereviewapp.NewReviewRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ReviewSection(gameID: Int) {
     var reviews by remember { mutableStateOf<List<Review>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
+
+    var starRating by remember { mutableStateOf(0f) }
+    var reviewText by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         try {
@@ -56,5 +84,87 @@ fun ReviewSection(gameID: Int) {
                 }
             }
         }
+        Spacer(Modifier.height(24.dp))
+
+        Text("Leave a Review", style = MaterialTheme.typography.titleMedium)
+        Text("Rating: ${"%.1f".format(starRating)}")
+        Slider(
+            value = starRating,
+            onValueChange = { starRating = it },
+            valueRange = 0f..5f,
+            steps = 4,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        BasicTextField(
+            value = reviewText,
+            onValueChange = { reviewText = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            decorationBox = @Composable { innerTextField ->
+                Box(modifier = Modifier.border(1.dp, Color.Gray).padding(8.dp)) {
+                    if (reviewText.isEmpty()) {
+                        Text("Write a review...", color = Color.Gray)
+                    }
+                    innerTextField()
+                }
+            }
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        Button(
+            onClick = {
+                if (reviewText.isNotEmpty() && starRating > 0) {
+                    val newReviewRequest = NewReviewRequest(
+                        reviewText = reviewText,
+                        user = FirebaseAuth.getInstance().currentUser?.email ?: "Anonymous",
+                        stars = starRating.toDouble(),
+                        gameID = gameID
+                    )
+                    coroutineScope.launch {
+                        try {
+                            RetrofitInstance.api.postReview(newReviewRequest)
+                            // Locally add the review with dummy ID and current time
+                            val newReview = Review(
+                                reviewID = (reviews.maxOfOrNull { it.reviewID } ?: 0) + 1,
+                                reviewText = reviewText,
+                                user = newReviewRequest.user,
+                                stars = newReviewRequest.stars,
+                                dateOfReview = LocalDateTime.now().toString(),
+                                gameID = newReviewRequest.gameID
+                            )
+                            reviews = reviews + newReview
+                            starRating = 0f
+                            reviewText = ""
+                            Toast.makeText(context, "Review submitted!", Toast.LENGTH_SHORT).show()
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "Error submitting review: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Please enter a review and rating.", Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Submit Review")
+        }
     }
+}
+
+fun submitReview(newReview: Review) {
+    val db = FirebaseFirestore.getInstance()
+    val reviewsRef = db.collection("reviews")
+
+    reviewsRef.add(newReview)
+        .addOnSuccessListener {
+            println("Review submitted successfully!")
+        }
+        .addOnFailureListener { e ->
+            println("Error submitting review: $e")
+        }
 }

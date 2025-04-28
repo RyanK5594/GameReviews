@@ -1,8 +1,11 @@
 package com.example.gamereviewapp.network
+import com.example.gamereviewapp.NewReviewRequest
 import com.example.gamereviewapp.model.Game
 import com.example.gamereviewapp.Review
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Body
 
 interface GameApi {
 
@@ -15,4 +18,7 @@ interface GameApi {
 
     @GET("api/reviews")
     suspend fun getReviews(): List<Review>
+
+    @POST("api/reviews")
+    suspend fun postReview(@Body review: NewReviewRequest)
 }

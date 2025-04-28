@@ -29,10 +29,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gamereviewapp.ui.theme.GameListScreen
 import com.example.gamereviewapp.ui.theme.GameDetailWrapper
+import com.example.gamereviewapp.ui.theme.LoginScreen
+import com.example.gamereviewapp.ui.theme.SignUpScreen
+import com.google.firebase.auth.FirebaseAuth
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val auth = FirebaseAuth.getInstance()
 
                 setContent {
                     val navController = rememberNavController()
@@ -41,10 +47,26 @@ class MainActivity : ComponentActivity() {
                     GameReviewAppTheme {
                         NavHost(navController = navController, startDestination = "gameList") {
                             composable("gameList") {
+                                val currentUser = auth.currentUser
+                                val userEmail = currentUser?.email ?: "Guest"
+
                                 GameListScreen(
                                     viewModel = viewModel,
+                                    userEmail = userEmail,
                                     onGameClick = { game ->
                                         navController.navigate("gameDetail/${game.gameID}")
+                                    },
+                                    onLoginClick = {
+                                        navController.navigate("login")
+                                    },
+                                    onSignUpClick = {
+                                        navController.navigate("signup")
+                                    },
+                                    onLogoutClick = {
+                                        auth.signOut()
+                                        navController.navigate("gameList") {
+                                            popUpTo("gameList") { inclusive = true }
+                                        }
                                     }
                                 )
                             }
@@ -53,6 +75,21 @@ class MainActivity : ComponentActivity() {
                                 if (gameId != null) {
                                     GameDetailWrapper(gameID = gameId)
                                 }
+                            }
+                            composable("login") {
+                                LoginScreen(
+                                    auth = auth,
+                                    onSignUpClick = { navController.navigate("signup") },
+                                    onLoginSuccess = { userEmail ->
+                                        navController.navigate("gameList/$userEmail")}
+                                )
+                            }
+                            composable("signup") {
+                                SignUpScreen(
+                                    auth = auth,
+                                    onLoginClick = { navController.navigate("login") },
+                                    onSignUpSuccess = { navController.navigate("gameList") }
+                                )
                             }
                         }
                     }

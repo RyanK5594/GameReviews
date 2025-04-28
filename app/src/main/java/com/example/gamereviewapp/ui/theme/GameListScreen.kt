@@ -33,12 +33,18 @@ import androidx.compose.runtime.*
 fun GameListScreen(
     viewModel: ViewGameModel,
     onGameClick: (Game) -> Unit,
-    modifier: Modifier = Modifier
+    onLoginClick: () -> Unit,
+    onSignUpClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    userEmail: String?
 ) {
     val games by viewModel.games.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
     var selectedStars by remember { mutableStateOf<Float?>(null) }
     var expanded by remember { mutableStateOf(false) }
+
+    val isLoggedIn = userEmail != null && userEmail.lowercase() != "guest"
 
     val filteredGames = games.filter { game ->
         val matchesQuery = searchQuery.isBlank() ||
@@ -52,6 +58,38 @@ fun GameListScreen(
     }
 
     Column(modifier = modifier.fillMaxSize()) {
+        if (isLoggedIn) {
+            Text(
+                text = "Logged in as: $userEmail",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                color = Color.Gray,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+            OutlinedButton(
+                onClick = onLogoutClick,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Text("Log Out")
+            }
+            } else {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                ) {
+                    OutlinedButton(onClick = onLoginClick) {
+                        Text("Login")
+                    }
+                    OutlinedButton(onClick = onSignUpClick) {
+                        Text("Sign Up")
+                    }
+                }
+            }
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
