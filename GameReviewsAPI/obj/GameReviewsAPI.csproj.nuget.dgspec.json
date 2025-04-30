@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj": {}
+    "D:\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj": {
+    "D:\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
+        "projectUniqueName": "D:\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
         "projectName": "GameReviewsAPI",
-        "projectPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
+        "projectPath": "D:\\GameReviews\\GameReviewsAPI\\GameReviewsAPI.csproj",
         "packagesPath": "C:\\Users\\ryanj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ryanj\\OneDrive - Technological University Dublin\\Enterprise App Dev\\GameReviews\\GameReviewsAPI\\obj\\",
+        "outputPath": "D:\\GameReviews\\GameReviewsAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ryanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.17, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
