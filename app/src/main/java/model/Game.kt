@@ -1,6 +1,4 @@
-package com.example.gamereviewapp.model
-
-import com.example.gamereviewapp.Review
+package model
 
 data class Game(
     val gameID: Int,

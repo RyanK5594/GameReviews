@@ -1,7 +1,6 @@
 package com.example.gamereviewapp
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.horizontalScroll
@@ -11,19 +10,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.gamereviewapp.ui.theme.GameReviewAppTheme
-import com.example.gamereviewapp.network.RetrofitInstance
-import com.example.gamereviewapp.model.Game
-import androidx.navigation.compose.*
-import com.example.gamereviewapp.viewmodel.ViewGameModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.gamereviewapp.ui.navigation.Screen
+import model.Game
+import viewmodel.ViewGameModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController

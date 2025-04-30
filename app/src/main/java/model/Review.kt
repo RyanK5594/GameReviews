@@ -1,4 +1,4 @@
-package com.example.gamereviewapp
+package model
 
 data class Review(
     val reviewID: Int,

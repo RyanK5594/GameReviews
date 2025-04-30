@@ -1,10 +1,10 @@
-package com.example.gamereviewapp.viewmodel
+package viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gamereviewapp.model.Game
-import com.example.gamereviewapp.network.RetrofitInstance
+import model.Game
+import network.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

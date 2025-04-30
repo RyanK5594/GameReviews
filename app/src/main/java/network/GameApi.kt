@@ -1,7 +1,7 @@
-package com.example.gamereviewapp.network
-import com.example.gamereviewapp.NewReviewRequest
-import com.example.gamereviewapp.model.Game
-import com.example.gamereviewapp.Review
+package network
+import model.NewReviewRequest
+import model.Game
+import model.Review
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path

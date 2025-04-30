@@ -1,4 +1,4 @@
-package com.example.gamereviewapp.network
+package network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
