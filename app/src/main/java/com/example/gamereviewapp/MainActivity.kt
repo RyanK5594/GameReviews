@@ -1,8 +1,10 @@
 package com.example.gamereviewapp
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,9 +68,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("gameDetail/{gameId}") { backStackEntry ->
-                                val gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
+                                var gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
                                 if (gameId != null) {
-                                    GameDetailWrapper(gameID = gameId)
+                                    GameDetailWrapper(gameID = gameId, onBackClick = { navController.popBackStack() })
                                 }
                             }
                             composable("login") {

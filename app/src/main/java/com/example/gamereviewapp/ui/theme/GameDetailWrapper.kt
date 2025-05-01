@@ -1,5 +1,7 @@
 package com.example.gamereviewapp.ui.theme
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -11,8 +13,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun GameDetailWrapper(gameID: Int) {
+fun GameDetailWrapper(gameID: Int, onBackClick: () -> Unit) {
     var game by remember { mutableStateOf<Game?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -31,7 +34,7 @@ fun GameDetailWrapper(gameID: Int) {
     when {
         isLoading -> CircularProgressIndicator()
         error != null -> Text("Error loading game: $error")
-        game != null -> GameDetailScreen(game = game!!)
+        game != null -> GameDetailScreen(game = game!!, onBackClick = onBackClick)
         else -> Text("Game not found.")
     }
 }
