@@ -28,24 +28,24 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .clip(MaterialTheme.shapes.medium) // Rounded corners for the image
+                .clip(MaterialTheme.shapes.medium)
         )
 
         OutlinedButton(
             onClick = onBackClick,
             modifier = Modifier
-                .padding(top = 16.dp)
+                .padding(top = 1.dp)
                 .align(Alignment.Start)
         ) {
             Text("Back")
         }
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(1.dp))
 
         Text(
             text = game.gameTitle,
             style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 1.dp)
         )
 
         Card(
@@ -53,7 +53,7 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             elevation = CardDefaults.cardElevation(4.dp),
             shape = MaterialTheme.shapes.small
         ) {
-            Column(modifier = Modifier.padding(10.dp)) {
+            Column(modifier = Modifier.padding(1.dp)) {
                 DetailRow("Genre", game.genre)
                 DetailRow("Developer", game.devloper)
                 DetailRow("Publisher", game.publisher)
@@ -71,9 +71,8 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             }
         }
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(1.dp))
 
-        // Review section (optional, if needed)
         ReviewSection(gameID = game.gameID)
     }
 }
