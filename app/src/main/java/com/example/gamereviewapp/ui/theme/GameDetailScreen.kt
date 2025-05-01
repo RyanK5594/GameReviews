@@ -28,7 +28,7 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .clip(MaterialTheme.shapes.medium) // Rounded corners for the image
+                .clip(MaterialTheme.shapes.medium)
         )
 
         OutlinedButton(

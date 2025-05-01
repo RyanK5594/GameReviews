@@ -47,22 +47,31 @@ class MainActivity : ComponentActivity() {
                         val currentUser = auth.currentUser
                         val userEmail = currentUser?.email ?: "Guest"
 
-                        GameListScreen(
-                            viewModel = viewModel,
-                            userEmail = userEmail,
-                            onGameClick = { game ->
-                                navController.navigate("gameDetail/${game.gameID}")
-                            },
-                            onLoginClick = {
-                                navController.navigate("login")
-                            },
-                            onSignUpClick = {
-                                navController.navigate("signup")
-                            },
-                            onLogoutClick = {
-                                auth.signOut()
-                                navController.navigate("gameList") {
-                                    popUpTo("gameList") { inclusive = true }
+
+                                GameListScreen(
+                                    viewModel = viewModel,
+                                    userEmail = userEmail,
+                                    onGameClick = { game ->
+                                        navController.navigate("gameDetail/${game.gameID}")
+                                    },
+                                    onLoginClick = {
+                                        navController.navigate("login")
+                                    },
+                                    onSignUpClick = {
+                                        navController.navigate("signup")
+                                    },
+                                    onLogoutClick = {
+                                        auth.signOut()
+                                        navController.navigate("gameList") {
+                                            popUpTo("gameList") { inclusive = true }
+                                        }
+                                    }
+                                )
+                            }
+                            composable("gameDetail/{gameId}") { backStackEntry ->
+                                var gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
+                                if (gameId != null) {
+                                    GameDetailWrapper(gameID = gameId, onBackClick = { navController.popBackStack() })
                                 }
                             }
                         )
