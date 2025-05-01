@@ -73,6 +73,7 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
 
         Spacer(Modifier.height(1.dp))
 
+        // Review section (optional, if needed)
         ReviewSection(gameID = game.gameID)
     }
 }

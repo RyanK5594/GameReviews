@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class ViewGameModel : ViewModel() {
+class ViewGameModel : ViewModel(), IViewGameModel {
     private val _games = MutableStateFlow<List<Game>>(emptyList())
-    val games: StateFlow<List<Game>> = _games
+    override val games: StateFlow<List<Game>> = _games
 
     init {
         fetchGames()

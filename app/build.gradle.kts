@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,6 +32,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    testOptions {
+        animationsDisabled = true
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -63,12 +69,29 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(libs.androidx.navigation.testing)
 
     testImplementation(libs.junit)
+    testImplementation ("org.mockito:mockito-core:5.11.0")
+    androidTestImplementation ("org.mockito:mockito-android:5.11.0")
+    androidTestImplementation ("com.google.android.gms:play-services-tasks:18.0.2")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation ("junit:junit:4.13.2")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation ("androidx.test:runner:1.5.2")
+    androidTestImplementation ("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+    androidTestUtil ("androidx.test:orchestrator:1.4.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.1")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.6.1")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

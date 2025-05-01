@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import model.Game
+import viewmodel.IViewGameModel
 import viewmodel.ViewGameModel
 import androidx.compose.runtime.*
 
 
 @Composable
 fun GameListScreen(
-    viewModel: ViewGameModel,
+    viewModel: IViewGameModel,
     onGameClick: (Game) -> Unit,
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
