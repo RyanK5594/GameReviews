@@ -3,10 +3,11 @@ package com.example.gamereviewapp.ui.theme
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -14,10 +15,11 @@ import model.Game
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun GameDetailScreen(game: Game) {
+fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp)) {
+        .padding(16.dp)
+    ) {
 
         AsyncImage(
             model = game.gameCover,
@@ -26,26 +28,72 @@ fun GameDetailScreen(game: Game) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
+                .clip(MaterialTheme.shapes.medium) // Rounded corners for the image
         )
 
-        Spacer(Modifier.height(16.dp))
+        OutlinedButton(
+            onClick = onBackClick,
+            modifier = Modifier
+                .padding(top = 1.dp)
+                .align(Alignment.Start)
+        ) {
+            Text("Back")
+        }
 
-        Text(game.gameTitle, style = MaterialTheme.typography.headlineMedium)
-        Text("Genre: ${game.genre}")
-        Text("Developer: ${game.devloper}")
-        Text("Publisher: ${game.publisher}")
-        Text("Platforms: ${game.platforms}")
-        Text("Release Date: ${game.releaseDate.take(10)}")
+        Spacer(Modifier.height(1.dp))
 
-        Spacer(Modifier.height(12.dp))
+        Text(
+            text = game.gameTitle,
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.padding(bottom = 1.dp)
+        )
 
-        Text("Description:", style = MaterialTheme.typography.titleMedium)
-        Text(game.description)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(4.dp),
+            shape = MaterialTheme.shapes.small
+        ) {
+            Column(modifier = Modifier.padding(1.dp)) {
+                DetailRow("Genre", game.genre)
+                DetailRow("Developer", game.devloper)
+                DetailRow("Publisher", game.publisher)
+                DetailRow("Platforms", game.platforms)
+                DetailRow("Release Date", game.releaseDate.take(10))
 
-        Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(12.dp))
 
-        Text("Price: $${game.price}")
+                Text("Description:", style = MaterialTheme.typography.titleMedium)
+                Text(game.description)
 
+                Spacer(Modifier.height(12.dp))
+
+                Text("Price: $${game.price}", style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+
+        Spacer(Modifier.height(1.dp))
+
+        // Review section (optional, if needed)
         ReviewSection(gameID = game.gameID)
+    }
+}
+
+@Composable
+fun DetailRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)
+    ) {
+        Text(
+            text = "$label:",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(2f)
+        )
     }
 }

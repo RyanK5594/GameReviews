@@ -1,8 +1,10 @@
 package com.example.gamereviewapp
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,65 +31,66 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val auth = FirebaseAuth.getInstance()
 
-                setContent {
-                    val navController = rememberNavController()
-                    val viewModel = remember { ViewGameModel() }
+        setContent {
+            val navController = rememberNavController()
+            val viewModel = remember { ViewGameModel() }
 
-                    GameReviewAppTheme {
-                        NavHost(navController = navController, startDestination = "gameList") {
-                            composable("gameList") {
-                                val currentUser = auth.currentUser
-                                val userEmail = currentUser?.email ?: "Guest"
+            GameReviewAppTheme {
+                NavHost(navController = navController, startDestination = "gameList") {
+                    composable("gameList") {
+                        val currentUser = auth.currentUser
+                        val userEmail = currentUser?.email ?: "Guest"
 
-                                GameListScreen(
-                                    viewModel = viewModel,
-                                    userEmail = userEmail,
-                                    onGameClick = { game ->
-                                        navController.navigate("gameDetail/${game.gameID}")
-                                    },
-                                    onLoginClick = {
-                                        navController.navigate("login")
-                                    },
-                                    onSignUpClick = {
-                                        navController.navigate("signup")
-                                    },
-                                    onLogoutClick = {
-                                        auth.signOut()
-                                        navController.navigate("gameList") {
-                                            popUpTo("gameList") { inclusive = true }
-                                        }
-                                    }
-                                )
-                            }
-                            composable("gameDetail/{gameId}") { backStackEntry ->
-                                val gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
-                                if (gameId != null) {
-                                    GameDetailWrapper(gameID = gameId)
+                        GameListScreen(
+                            viewModel = viewModel,
+                            userEmail = userEmail,
+                            onGameClick = { game ->
+                                navController.navigate("gameDetail/${game.gameID}")
+                            },
+                            onLoginClick = {
+                                navController.navigate("login")
+                            },
+                            onSignUpClick = {
+                                navController.navigate("signup")
+                            },
+                            onLogoutClick = {
+                                auth.signOut()
+                                navController.navigate("gameList") {
+                                    popUpTo("gameList") { inclusive = true }
                                 }
                             }
-                            composable("login") {
-                                LoginScreen(
-                                    auth = auth,
-                                    onSignUpClick = { navController.navigate("signup") },
-                                    onLoginSuccess = { userEmail ->
-                                        navController.navigate("gameList/$userEmail")}
-                                )
-                            }
-                            composable("signup") {
-                                SignUpScreen(
-                                    auth = auth,
-                                    onLoginClick = { navController.navigate("login") },
-                                    onSignUpSuccess = { navController.navigate("gameList") }
-                                )
-                            }
+                        )
+                    }
+                    composable("gameDetail/{gameId}") { backStackEntry ->
+                        var gameId = backStackEntry.arguments?.getString("gameId")?.toIntOrNull()
+                        if (gameId != null) {
+                            GameDetailWrapper(gameID = gameId, onBackClick = { navController.popBackStack() })
                         }
                     }
-             0   }
+                    composable("login") {
+                        LoginScreen(
+                            auth = auth,
+                            onSignUpClick = { navController.navigate("signup") },
+                            onLoginSuccess = { userEmail ->
+                                navController.navigate("gameList/$userEmail")}
+                        )
+                    }
+                    composable("signup") {
+                        SignUpScreen(
+                            auth = auth,
+                            onLoginClick = { navController.navigate("login") },
+                            onSignUpSuccess = { navController.navigate("gameList") }
+                        )
+                    }
+                }
+            }
+            0   }
     }
 }
 
