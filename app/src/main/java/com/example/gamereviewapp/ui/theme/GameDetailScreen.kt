@@ -3,8 +3,6 @@ package com.example.gamereviewapp.ui.theme
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +19,6 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
-        .verticalScroll(rememberScrollState())
     ) {
 
         AsyncImage(
@@ -30,8 +27,8 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(250.dp)
-                .clip(MaterialTheme.shapes.medium)
+                .height(200.dp)
+                .clip(MaterialTheme.shapes.medium) // Rounded corners for the image
         )
 
         OutlinedButton(
@@ -56,7 +53,7 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
             elevation = CardDefaults.cardElevation(4.dp),
             shape = MaterialTheme.shapes.small
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.padding(10.dp)) {
                 DetailRow("Genre", game.genre)
                 DetailRow("Developer", game.devloper)
                 DetailRow("Publisher", game.publisher)
@@ -76,6 +73,7 @@ fun GameDetailScreen(game: Game, onBackClick: () -> Unit) {
 
         Spacer(Modifier.height(12.dp))
 
+        // Review section (optional, if needed)
         ReviewSection(gameID = game.gameID)
     }
 }
